@@ -41,7 +41,7 @@ contract Lottery{
         require(msg.sender == lastPlayer, "You are not a winner");
         // и победитель ещё не забрал свой выигрыш
         require(winnerGetEth == false, "You've already taken your winnings");
-        // отправка на адрес игрока, сделавшего ставку последним 90% баланса контракта
+        // отправка на адрес победителя его выигрыша - 90% баланса контракта
         payable(lastPlayer).transfer(address(this).balance - address(this).balance / 10);
         // запоминаем, что выигрыш выдан победителю
         winnerGetEth = true;

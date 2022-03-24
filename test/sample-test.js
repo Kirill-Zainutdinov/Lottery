@@ -64,7 +64,8 @@ describe("Lottery", function(){
     // переводим время на 1 час вперёд
     await ethers.provider.send('evm_increaseTime', [3600]);
 
-    // player2 пробует вывести выигрыш (ставку делал player1)
+    // player2 обиделся, что его ставку не приняли,
+    // и пробует вывести чужой выигрыш (ставку делал player1)
     await expect(
       lottery.connect(player2).withdraw()
     ).to.be.revertedWith("You are not a winner");
@@ -89,7 +90,7 @@ describe("Lottery", function(){
 
     // рассчитываем комиссию за выполнение транзакции
     const fee = BigInt(txResult.cumulativeGasUsed * txResult.effectiveGasPrice);
-    // рассчитываем ожидаемые баланс игорака после вывода выигрыша
+    // рассчитываем ожидаемый баланс игорака после вывода выигрыша
     // баланс до - комиссия за транзакцию + сумма выигрыша
     const playerBalanceAfter = playerBalanceBefore - fee + winningAmount;
 
@@ -98,14 +99,12 @@ describe("Lottery", function(){
 
     // проверяем изменение баланса игрока
     expect(await ethers.provider.getBalance(player1.address)).to.equal(playerBalanceAfter);
-
   })
-
 
   // проверка, что победитель не может забрать выгрышь дважды
   it("Trying to take the winnings twice", async function(){
     
-    // пробуем вывести выгрыш второй раз подряд
+    // player1 вывести выгрыш второй раз подряд
     await expect(
       lottery.withdraw()
     ).to.be.revertedWith("You've already taken your winnings");
