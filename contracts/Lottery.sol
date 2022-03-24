@@ -47,3 +47,5 @@ contract Lottery{
         winnerGetEth = true;
     }
 }
+
+// The contract is deployed on the test network BSC at 0x69Fa9E8e5E53fCE079eC039Acb99fae79ea452BD
