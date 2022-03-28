@@ -19,7 +19,7 @@ async function main() {
 
   await lottery.deployed();
 
-  console.log("Greeter deployed to:", lottery.address);
+  console.log("Lottery deployed to:", lottery.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
